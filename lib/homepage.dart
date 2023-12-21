@@ -1,4 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:social_media_app/data/data.dart';
+
+import 'config/palette.dart';
+import 'widgets/circle_button.dart';
+import 'widgets/create_post_container.dart';
+import 'widgets/rooms.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -12,86 +19,46 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              const Text(
-                'Social Media',
+        body: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              backgroundColor: Colors.white,
+              title: const Text(
+                "facebook",
                 style: TextStyle(
-                    color: Colors.blue,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold),
-              ),
-              Expanded(
-                  child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Container(
-                      // height: 100,
-                      child: Card(
-                        child: Column(
-                          children: [
-                            const Row(
-                              children: [
-                                CircleAvatar(
-                                  child: Text('U'),
-                                ),
-                                SizedBox(width: 8),
-                                Expanded(
-                                    child: TextField(
-                                  decoration: InputDecoration(
-                                      hintText: 'What\'s on your mind ?'),
-                                ))
-                              ],
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Expanded(
-                                  child: IconButton(
-                                    onPressed: () {},
-                                    icon: const Row(
-                                      children: [
-                                        Text('Live'),
-                                        Icon(Icons.videocam),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: IconButton(
-                                    onPressed: () {},
-                                    icon: const Row(
-                                      children: [
-                                        Text('Photo'),
-                                        Icon(Icons.photo),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: IconButton(
-                                    onPressed: () {},
-                                    icon: const Row(
-                                      children: [
-                                        Text('Camera'),
-                                        Icon(Icons.camera),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
-                    )
-                  ],
+                  color: Palette.facebookBlue,
+                  fontSize: 28.0,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: -1.2,
                 ),
-              ))
-            ],
-          ),
+              ),
+              centerTitle: false,
+              floating: true,
+              actions: [
+                CircleButton(
+                  icon: Icons.search,
+                  iconSize: 30.0,
+                  iconColor: Colors.black,
+                  onPressed: () => print("search"),
+                ),
+                CircleButton(
+                  icon: MdiIcons.facebookMessenger,
+                  iconSize: 30.0,
+                  iconColor: Colors.black,
+                  onPressed: () => print("messenger"),
+                ),
+              ],
+            ),
+            const SliverToBoxAdapter(
+              child: CreatePostContainer(currentUser: currentUser),
+            ),
+            SliverPadding(
+              padding: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 5.0),
+              sliver: SliverToBoxAdapter(
+                child: Rooms(onlineUsers: onlineUsers),
+              ),
+            ),
+          ],
         ),
       ),
     );
