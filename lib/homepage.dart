@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:social_media_app/data/data.dart';
+import 'package:social_media_app/widgets/stories.dart';
 
 import 'config/palette.dart';
 import 'widgets/circle_button.dart';
@@ -56,6 +57,15 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 5.0),
               sliver: SliverToBoxAdapter(
                 child: Rooms(onlineUsers: onlineUsers),
+              ),
+            ),
+            SliverPadding(
+              padding: const EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 5.0),
+              sliver: SliverToBoxAdapter(
+                child: Stories(
+                  currentUser: currentUser,
+                  stories: stories,
+                ),
               ),
             ),
           ],
