@@ -4,8 +4,10 @@ import 'package:social_media_app/data/data.dart';
 import 'package:social_media_app/widgets/stories.dart';
 
 import 'config/palette.dart';
+import 'models/post_model.dart';
 import 'widgets/circle_button.dart';
 import 'widgets/create_post_container.dart';
+import 'widgets/post_container.dart';
 import 'widgets/rooms.dart';
 
 class HomePage extends StatefulWidget {
@@ -66,6 +68,15 @@ class _HomePageState extends State<HomePage> {
                   currentUser: currentUser,
                   stories: stories,
                 ),
+              ),
+            ),
+            SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (context, index) {
+                  final Post post = posts[index];
+                  return PostContainer(post: post);
+                },
+                childCount: posts.length,
               ),
             ),
           ],
