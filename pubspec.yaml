@@ -37,6 +37,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   material_design_icons_flutter: ^7.0.7296
   cached_network_image: ^3.3.0
+  firebase_core: ^2.24.2
+  cloud_firestore: ^4.13.6
 
 dev_dependencies:
   flutter_test:

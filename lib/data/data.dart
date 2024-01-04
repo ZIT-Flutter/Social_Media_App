@@ -55,9 +55,8 @@ final List<User> onlineUsers = [
         'https://images.unsplash.com/photo-1528892952291-009c663ce843?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=592&q=80',
   ),
   const User(
-    name: 'Jessie Samson',
-    imageUrl:
-        'https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80',
+    name: 'Abir Hosain',
+    imageUrl: 'https://avatars.githubusercontent.com/u/71945183?v=4',
   ),
   const User(
     name: 'David Brooks',
@@ -203,7 +202,7 @@ final List<Post> posts = [
     timeAgo: '15hr',
     imageUrl:
         'https://images.unsplash.com/photo-1573331519317-30b24326bb9a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80',
-    likes: 722,
+    likes: 800,
     comments: 183,
     shares: 42,
   ),
@@ -218,11 +217,20 @@ final List<Post> posts = [
     shares: 9,
   ),
   Post(
-    user: onlineUsers[9],
+    user: onlineUsers[0],
     caption: 'A classic.',
     timeAgo: '1d',
     imageUrl:
         'https://images.unsplash.com/reserve/OlxPGKgRUaX0E1hg3b3X_Dumbo.JPG?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80',
+    likes: 1523,
+    shares: 129,
+    comments: 301,
+  ),
+  Post(
+    user: onlineUsers[9],
+    caption: 'Just looking like a wow❤️❤️❤️❤️',
+    timeAgo: '1d',
+    imageUrl: 'https://avatars.githubusercontent.com/u/71945183?v=4',
     likes: 1523,
     shares: 129,
     comments: 301,

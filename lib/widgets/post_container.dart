@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -151,7 +153,7 @@ class _PostStats extends StatelessWidget {
             ),
           ],
         ),
-        const Divider(thickness: 0.5),
+        const Divider(thickness: .5),
         Row(
           children: [
             _PostButton(
@@ -179,7 +181,9 @@ class _PostStats extends StatelessWidget {
                 size: 25.0,
               ),
               label: "Share",
-              onTap: () => print("Share"),
+              onTap: () {
+                print("Share");
+              },
             ),
           ],
         )

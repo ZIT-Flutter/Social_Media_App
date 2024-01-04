@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:social_media_app/data/data.dart';
@@ -48,7 +50,9 @@ class _HomePageState extends State<HomePage> {
                   icon: MdiIcons.facebookMessenger,
                   iconSize: 30.0,
                   iconColor: Colors.black,
-                  onPressed: () => print("messenger"),
+                  onPressed: () async {
+                    await getAllPost();
+                  },
                 ),
               ],
             ),
@@ -83,5 +87,13 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+
+  Future getAllPost() async {
+    var collRef = await FirebaseFirestore.instance.collection('post').get();
+    for (var doc in collRef.docs) {
+      var docData = doc.data();
+      print(docData);
+    }
   }
 }
