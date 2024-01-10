@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:social_media_app/data/data.dart';
+import 'package:social_media_app/models/models.dart';
 import 'package:social_media_app/widgets/stories.dart';
 
 import 'config/palette.dart';
@@ -20,6 +21,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  Stream<QuerySnapshot> dataStream =
+      FirebaseFirestore.instance.collection('post').snapshots();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -74,15 +78,47 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (context, index) {
-                  final Post post = posts[index];
-                  return PostContainer(post: post);
-                },
-                childCount: posts.length,
-              ),
-            ),
+            StreamBuilder<QuerySnapshot>(
+                stream: dataStream,
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return const SliverToBoxAdapter(
+                        child: Text('Something went wrong'));
+                  }
+
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const SliverToBoxAdapter(
+                        child: Center(child: Text('Loading...')));
+                  }
+
+                  // Data is available
+                  List<DocumentSnapshot> documents = snapshot.data!.docs;
+
+                  // print(documents.first.data());
+
+                  return SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                      (context, index) {
+                        var docMap =
+                            documents[index].data() as Map<String, dynamic>;
+
+                        print(docMap['likes']);
+
+                        final Post post = Post(
+                            user: currentUser,
+                            caption: docMap['caption'],
+                            timeAgo: docMap['timeAgo'],
+                            imageUrl: docMap['imageUrl'],
+                            likes: docMap['likes'],
+                            comments: docMap['comments'].length,
+                            shares: docMap['shares']);
+
+                        return PostContainer(post: post);
+                      },
+                      childCount: documents.length,
+                    ),
+                  );
+                }),
           ],
         ),
       ),
