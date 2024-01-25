@@ -27,6 +27,7 @@ class CreatePostContainer extends StatelessWidget {
               GestureDetector(
                   onTap: () {
                     showModalBottomSheet(
+                        isScrollControlled: true,
                         context: context,
                         builder: (context) => NewPostContainer());
                   },

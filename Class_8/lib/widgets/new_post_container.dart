@@ -1,22 +1,34 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
-class NewPostContainer extends StatelessWidget {
+class NewPostContainer extends StatefulWidget {
   const NewPostContainer({super.key});
+
+  @override
+  State<NewPostContainer> createState() => _NewPostContainerState();
+}
+
+class _NewPostContainerState extends State<NewPostContainer> {
+  var postTextController = TextEditingController();
+
+  File? imagefile;
 
   @override
   Widget build(BuildContext context) {
     return DraggableScrollableSheet(
+      expand: false,
       maxChildSize: 0.9,
-      initialChildSize: 0.8,
-      minChildSize: 0.3,
+      initialChildSize: 0.6,
+      minChildSize: 0.0,
       builder: (context, scrollController) => Container(
         child: SingleChildScrollView(
           controller: scrollController,
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(children: [
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                Row(children: [
                   InkWell(
                     onTap: () {},
                     child: const CircleAvatar(
@@ -33,44 +45,66 @@ class NewPostContainer extends StatelessWidget {
                     ),
                   )
                 ]),
-              ),
-              const Divider(),
-              const TextField(
-                maxLines: 10,
-                decoration: InputDecoration(
-                  hintText: "what\'s your mind ?",
-                  hintStyle: TextStyle(
-                    fontSize: 19,
-                    fontWeight: FontWeight.w400,
+                const Divider(),
+                TextField(
+                  controller: postTextController,
+                  maxLines: 10,
+                  decoration: const InputDecoration(
+                    hintText: "What\'s in your mind ?",
+                    hintStyle: TextStyle(
+                      fontSize: 19,
+                      fontWeight: FontWeight.w400,
+                    ),
                   ),
                 ),
-              ),
-              const card(
-                  icontitle: "Photo/Video",
-                  selectephoto: Icons.photo_library,
-                  iconcolor: Colors.green),
-              const Divider(),
-              const card(
-                  icontitle: "Photo/Video",
-                  selectephoto: Icons.person,
-                  iconcolor: Colors.blue),
-              const Divider(),
-              const card(
-                  icontitle: "Photo/Video",
-                  selectephoto: Icons.location_on,
-                  iconcolor: Colors.red),
-              const Divider(),
-              const card(
-                  icontitle: "Photo/Video",
-                  selectephoto: Icons.sentiment_satisfied,
-                  iconcolor: Colors.amber),
-              const Divider(),
-              const card(
-                  icontitle: "Photo/Video",
-                  selectephoto: Icons.video_call,
-                  iconcolor: Color.fromARGB(255, 250, 52, 38)),
-              const Divider(),
-            ],
+                Container(
+                  height: 100,
+                  width: 100,
+                  decoration: BoxDecoration(
+                      border: Border.all(),
+                      image: imagefile != null
+                          ? DecorationImage(
+                              image: FileImage(
+                                imagefile!,
+                              ),
+                              fit: BoxFit.cover)
+                          : null),
+                  child: imagefile == null
+                      ? const Center(child: Text('No Image'))
+                      : null,
+                ),
+                const card(
+                    icontitle: "Photo/Video",
+                    selectephoto: Icons.photo_library,
+                    iconcolor: Colors.green),
+                const Divider(),
+                const card(
+                    icontitle: "Photo/Video",
+                    selectephoto: Icons.person,
+                    iconcolor: Colors.blue),
+                const Divider(),
+                const card(
+                    icontitle: "Photo/Video",
+                    selectephoto: Icons.location_on,
+                    iconcolor: Colors.red),
+                const Divider(),
+                const card(
+                    icontitle: "Photo/Video",
+                    selectephoto: Icons.sentiment_satisfied,
+                    iconcolor: Colors.amber),
+                const Divider(),
+                const card(
+                    icontitle: "Photo/Video",
+                    selectephoto: Icons.video_call,
+                    iconcolor: Color.fromARGB(255, 250, 52, 38)),
+                const Divider(),
+                ElevatedButton(
+                    onPressed: () {
+                      print(postTextController.text);
+                    },
+                    child: const Text('Post'))
+              ],
+            ),
           ),
         ),
       ),
