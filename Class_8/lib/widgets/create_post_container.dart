@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:social_media_app/widgets/new_post_container.dart';
+import 'package:social_media_app/widgets/new_post/new_post_container.dart';
 
 import '../models/user_model.dart';
 import 'profile_avatar.dart';

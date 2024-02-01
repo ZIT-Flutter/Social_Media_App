@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:social_media_app/widgets/new_post/post_card.dart';
 
 class NewPostContainer extends StatefulWidget {
   const NewPostContainer({super.key});
@@ -70,31 +72,39 @@ class _NewPostContainerState extends State<NewPostContainer> {
                               fit: BoxFit.cover)
                           : null),
                   child: imagefile == null
-                      ? const Center(child: Text('No Image'))
+                      ? const Center(
+                          child: Text('No Image'),
+                        )
                       : null,
                 ),
-                const card(
-                    icontitle: "Photo/Video",
-                    selectephoto: Icons.photo_library,
-                    iconcolor: Colors.green),
+                PostCard(
+                  icontitle: "Photo/Video",
+                  selectephoto: Icons.photo_library,
+                  iconcolor: Colors.green,
+                  onClick: () async {
+                    imagefile = await pickImage();
+
+                    setState(() {});
+                  },
+                ),
                 const Divider(),
-                const card(
-                    icontitle: "Photo/Video",
+                const PostCard(
+                    icontitle: "Tag",
                     selectephoto: Icons.person,
                     iconcolor: Colors.blue),
                 const Divider(),
-                const card(
-                    icontitle: "Photo/Video",
+                const PostCard(
+                    icontitle: "Location",
                     selectephoto: Icons.location_on,
                     iconcolor: Colors.red),
                 const Divider(),
-                const card(
-                    icontitle: "Photo/Video",
+                const PostCard(
+                    icontitle: "Feelings",
                     selectephoto: Icons.sentiment_satisfied,
                     iconcolor: Colors.amber),
                 const Divider(),
-                const card(
-                    icontitle: "Photo/Video",
+                const PostCard(
+                    icontitle: "Camera",
                     selectephoto: Icons.video_call,
                     iconcolor: Color.fromARGB(255, 250, 52, 38)),
                 const Divider(),
@@ -110,35 +120,15 @@ class _NewPostContainerState extends State<NewPostContainer> {
       ),
     );
   }
-}
 
-class card extends StatelessWidget {
-  final IconData selectephoto;
-  final String icontitle;
-  final Color iconcolor;
-  const card({
-    super.key,
-    required this.icontitle,
-    required this.selectephoto,
-    required this.iconcolor,
-  });
+  Future<File?> pickImage() async {
+    // final picker = ImagePicker();
 
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        IconButton(
-            onPressed: () {},
-            icon: Icon(
-              selectephoto,
-              color: iconcolor,
-              size: 25,
-            )),
-        Text(
-          icontitle,
-          style: const TextStyle(fontSize: 15),
-        ),
-      ],
-    );
+    final pickedImage =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (pickedImage != null) {
+      return File(pickedImage.path);
+    }
+    return null;
   }
 }
